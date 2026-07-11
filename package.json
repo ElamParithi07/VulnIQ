@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@supabase/supabase-js": "^2.110.2",
+    "axios": "^1.18.1",
+    "date-fns": "^4.4.0",
+    "dotenv": "^17.4.2"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.0"
+  },
+  "scripts": {
+    "ingest": "tsx src/jobs/ingest.ts",
+    "match": "tsx src/jobs/testMatching.ts"
+  }
+}

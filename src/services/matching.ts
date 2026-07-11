@@ -1,9 +1,10 @@
 import supabase from "../config/supabase";
 import { EnrichedVulnerability } from "../types/vulnerability";
+import { TOP_VULNERABILITIES } from "../config/constants";
 
 export async function getTopVulnerabilitiesForUser(
   techTags: string[],
-  limit = 10
+  limit = TOP_VULNERABILITIES
 ): Promise<EnrichedVulnerability[]> {
   if (techTags.length === 0) {
     return [];

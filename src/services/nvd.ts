@@ -2,8 +2,9 @@ import axios from "axios";
 import dotenv from "dotenv";
 import { Vulnerability } from "../types/vulnerability";
 import { extractVendorAndProduct } from "../lib/normalize";
+import { env } from "../config/env";
+import { RESULTS_PER_PAGE } from "../config/constants";
 
-dotenv.config();
 
 const BASE_URL =
   "https://services.nvd.nist.gov/rest/json/cves/2.0";
@@ -20,11 +21,11 @@ export async function fetchNVDVulnerabilities(): Promise<Vulnerability[]> {
     params: {
         lastModStartDate: yesterday.toISOString(),
         lastModEndDate: now.toISOString(),
-        resultsPerPage: 2000,
+        resultsPerPage: RESULTS_PER_PAGE,
     },
-    headers: process.env.NVD_API_KEY
+    headers: env.NVD_API_KEY
         ? {
-            apiKey: process.env.NVD_API_KEY,
+            apiKey: env.NVD_API_KEY,
         }
         : {},
     });

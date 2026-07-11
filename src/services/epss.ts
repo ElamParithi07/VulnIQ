@@ -1,4 +1,5 @@
 import axios from "axios";
+import { EPSS_BATCH_SIZE } from "../config/constants";
 
 const EPSS_API = "https://api.first.org/data/v1/epss";
 
@@ -14,8 +15,8 @@ export async function fetchEPSSScores(
 
         const epssMap = new Map<string, number>();
 
-        for (let i = 0; i < cveIds.length; i += 100) {
-            const batch = cveIds.slice(i, i + 100);
+        for (let i = 0; i < cveIds.length; i += EPSS_BATCH_SIZE) {
+            const batch = cveIds.slice(i, i + EPSS_BATCH_SIZE);
             console.log(`Fetching EPSS scores for CVEs ${i + 1} to ${i + batch.length}...`);
             const response = await axios.get(EPSS_API, {
                 params: {

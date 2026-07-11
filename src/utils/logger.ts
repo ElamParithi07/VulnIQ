@@ -1,5 +1,7 @@
 export const logger = {
-  info: console.log,
-  error: console.error,
-  warn: console.warn,
+  info: (...args: unknown[]) => console.log(...args),
+
+  warn: (...args: unknown[]) => console.warn(...args),
+
+  error: (...args: unknown[]) => console.error(...args),
 };

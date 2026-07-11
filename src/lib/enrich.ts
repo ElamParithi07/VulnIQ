@@ -1,12 +1,12 @@
 import {
-  Vulnerability,
+  RawVulnerability,
   EnrichedVulnerability,
 } from "../types/vulnerability";
 
 import { calculatePriorityScore } from "./score";
 
 export function enrichVulnerabilities(
-  vulnerabilities: Vulnerability[],
+  vulnerabilities: RawVulnerability[],
   kevSet: Set<string>,
   epssMap: Map<string, number>
 ): EnrichedVulnerability[] {

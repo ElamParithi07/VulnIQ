@@ -1,3 +1,4 @@
+import { normalizeTechnology } from "./technology";
 export function extractVendorAndProduct(configurations: any) {
   if (!configurations) {
     return {
@@ -15,8 +16,8 @@ export function extractVendorAndProduct(configurations: any) {
 
         if (parts.length >= 5) {
           return {
-            vendor: parts[3].replace(/_/g, " "),
-            product: parts[4].replace(/_/g, " "),
+            vendor: normalizeTechnology(parts[3]),
+            product: normalizeTechnology(parts[3])
           };
         }
       }

@@ -1,28 +1,11 @@
 import supabase from "../config/supabase";
+import { toDatabase } from "../lib/mappers/vulnerabilityMapper";
 import { EnrichedVulnerability } from "../types/vulnerability";
 
 export async function saveVulnerabilities(
     vulnerabilities: EnrichedVulnerability[]
 ) {
-    const rows = vulnerabilities.map((v) => ({
-        id: v.id,
-
-        title: v.title,
-
-        vendor: v.vendor,
-
-        product: v.product,
-
-        cvss_score: v.cvss,
-
-        epss_score: v.epss,
-
-        is_cisa_kev: v.isKEV,
-
-        priority_score: v.priorityScore,
-
-        published_at: v.published,
-    }));
+    const rows = vulnerabilities.map(toDatabase);
 
     const { data, error } = await supabase
         .from("vulnerability_cache")

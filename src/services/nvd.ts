@@ -1,7 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
-import { Vulnerability } from "../types/vulnerability";
-import { extractVendorAndProduct } from "../lib/normalize";
+import { RawVulnerability } from "../types/vulnerability";
+import { extractVendorAndProduct } from "../lib/normalization/vendor";
 import { env } from "../config/env";
 import { RESULTS_PER_PAGE } from "../config/constants";
 
@@ -9,7 +9,7 @@ import { RESULTS_PER_PAGE } from "../config/constants";
 const BASE_URL =
   "https://services.nvd.nist.gov/rest/json/cves/2.0";
 
-export async function fetchNVDVulnerabilities(): Promise<Vulnerability[]> {
+export async function fetchNVDVulnerabilities(): Promise<RawVulnerability[]> {
   try {
     const now = new Date();
 
@@ -32,7 +32,7 @@ export async function fetchNVDVulnerabilities(): Promise<Vulnerability[]> {
 
     const vulnerabilities = response.data.vulnerabilities;
 
-    return vulnerabilities.map((item: any): Vulnerability => {
+    return vulnerabilities.map((item: any): RawVulnerability => {
       const cve = item.cve;
 
       const cvss =

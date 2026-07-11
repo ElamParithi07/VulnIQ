@@ -20,4 +20,6 @@ export const env = {
   ),
 
   NVD_API_KEY: process.env.NVD_API_KEY ?? "",
+
+  GEMINI_API_KEY: required("GEMINI_API_KEY"),
 };

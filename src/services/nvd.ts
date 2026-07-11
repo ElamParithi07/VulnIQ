@@ -1,5 +1,4 @@
 import axios from "axios";
-import dotenv from "dotenv";
 import { RawVulnerability } from "../types/vulnerability";
 import { extractVendorAndProduct } from "../lib/normalization/vendor";
 import { env } from "../config/env";

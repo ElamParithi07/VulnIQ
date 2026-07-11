@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@google/genai": "^2.11.0",
     "@supabase/supabase-js": "^2.110.2",
     "axios": "^1.18.1",
     "date-fns": "^4.4.0",
@@ -10,6 +11,10 @@
   },
   "scripts": {
     "ingest": "tsx src/jobs/ingest.ts",
-    "match": "tsx src/jobs/testMatching.ts"
+    "match": "tsx src/jobs/testMatching.ts",
+    "ai": "tsx src/jobs/testAI.ts",
+    "summary":"tsx src/jobs/testSummary.ts",
+    "analysis": "tsx src/jobs/testAnalysis.ts",
+    "cache":"tsx src/jobs/testCache.ts"
   }
 }

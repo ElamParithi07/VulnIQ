@@ -124,9 +124,21 @@ RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
 PIPELINE_TRIGGER_TOKEN = os.getenv("PIPELINE_TRIGGER_TOKEN", "")
 
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "alerts@vulniq.local")
+_EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
 MAILERS = {
     "default": {
-        "BACKEND": os.getenv("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"),
+        "BACKEND": _EMAIL_BACKEND,
+        "OPTIONS": (
+            {
+                "host": os.getenv("EMAIL_HOST", ""),
+                "port": int(os.getenv("EMAIL_PORT", "587")),
+                "username": os.getenv("EMAIL_HOST_USER", ""),
+                "password": os.getenv("EMAIL_HOST_PASSWORD", ""),
+                "use_tls": env_bool("EMAIL_USE_TLS", True),
+            }
+            if _EMAIL_BACKEND == "django.core.mail.backends.smtp.EmailBackend"
+            else {}
+        ),
     },
 }
 

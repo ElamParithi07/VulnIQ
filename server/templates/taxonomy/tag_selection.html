@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <h1>Select Your Products</h1>
+
+  {% if messages %}
+  <ul>
+    {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <ul>
+    {% for tag in tags %}
+      <li>
+        <label>
+          <input type="checkbox" name="tags" value="{{ tag.id }}" {% if tag.id in selected_ids %}checked{% endif %}>
+          {{ tag.name }}
+        </label>
+      </li>
+    {% endfor %}
+    </ul>
+    <button type="submit">Save selections</button>
+  </form>
+
+  <p><a href="{% url 'dashboard-home' %}">Back to dashboard</a></p>
+</body>
+</html>

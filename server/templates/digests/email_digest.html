@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>VulnIQ Daily Digest</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f4f5f7;font-family:Arial, Helvetica, sans-serif;color:#1f2933;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f5f7;padding:24px 0;">
+<tr><td align="center">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border:1px solid #e4e7eb;">
+
+<tr><td style="padding:24px 32px;border-bottom:1px solid #e4e7eb;">
+<div style="font-size:18px;font-weight:bold;color:#0b3d91;">VulnIQ</div>
+<div style="font-size:13px;color:#616e7c;">Daily Vulnerability Digest &mdash; {{ digest_date }}</div>
+</td></tr>
+
+<tr><td style="padding:20px 32px;">
+{% if is_fully_backfill %}
+<p style="font-size:14px;line-height:1.5;margin:0;">No vulnerabilities were found for your selected product stack today. Below are today's top global threats instead.</p>
+{% else %}
+<p style="font-size:14px;line-height:1.5;margin:0;">Here is your daily vulnerability briefing for {{ organization_name }}, based on your selected products.</p>
+{% endif %}
+</td></tr>
+
+{% for item in items %}
+<tr><td style="padding:0 32px 20px 32px;border-bottom:1px solid #e4e7eb;">
+  <div style="font-size:15px;font-weight:bold;">{{ item.title }}</div>
+  <div style="font-size:12px;color:#616e7c;margin:2px 0 6px 0;">{{ item.cve_id }} &middot; {{ item.vendor_product_line }} &middot; {{ item.date_label }}</div>
+  {% if item.chips %}
+  <div style="margin-bottom:6px;">
+  {% for chip in item.chips %}<span style="display:inline-block;background-color:#fde8e8;color:#9b1c1c;font-size:11px;padding:2px 8px;border-radius:10px;margin-right:4px;">{{ chip }}</span>{% endfor %}
+  </div>
+  {% endif %}
+  <div style="font-size:12px;color:#1f2933;margin-bottom:6px;">
+    {% if item.cvss_score %}CVSS {{ item.cvss_score }}{% endif %}{% if item.cvss_score and item.epss_score %} &middot; {% endif %}{% if item.epss_score %}EPSS {{ item.epss_score }}{% endif %}
+  </div>
+  <div style="font-size:13px;line-height:1.5;margin-bottom:6px;">{{ item.ai_summary }}</div>
+  <div style="font-size:13px;line-height:1.5;background-color:#f4f5f7;padding:8px 10px;border-radius:4px;">{{ item.ai_remediation }}</div>
+  <div style="font-size:12px;margin-top:6px;"><a href="{{ item.nvd_url }}" style="color:#0b3d91;">View on NVD</a></div>
+</td></tr>
+{% endfor %}
+
+<tr><td style="padding:20px 32px;font-size:12px;color:#616e7c;">
+<p style="margin:0 0 6px 0;">You are receiving this because daily digest emails are enabled for your organization on VulnIQ.</p>
+<p style="margin:0;"><a href="{{ dashboard_url }}" style="color:#0b3d91;">View in dashboard</a> &middot; <a href="{{ settings_url }}" style="color:#0b3d91;">Manage digest settings / unsubscribe</a></p>
+</td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>

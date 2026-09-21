@@ -1,0 +1,13 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Run daily pipeline now</h1>
+
+<p>This ingests NVD/KEV/EPSS, then builds, enriches, and sends one digest per eligible organization.
+It uses the same lock-protected path as the scheduler, so it will refuse to run if a pipeline run is already in progress.</p>
+
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" value="Run now">
+</form>
+{% endblock %}

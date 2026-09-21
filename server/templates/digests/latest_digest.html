@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <h1>Latest Digest</h1>
+
+  {% if digest %}
+    <p>{{ digest.digest_date }} &mdash; {{ digest.organization.name }}</p>
+    {% if digest_context.is_fully_backfill %}
+    <p>No vulnerabilities were found for your selected product stack. Showing today's top global threats instead.</p>
+    {% endif %}
+    <ul>
+    {% for item in digest_context.items %}
+      <li>
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.cve_id }} &middot; {{ item.vendor_product_line }} &middot; {{ item.date_label }}</p>
+        {% if item.chips %}<p>{% for chip in item.chips %}[{{ chip }}] {% endfor %}</p>{% endif %}
+        <p>{% if item.cvss_score %}CVSS {{ item.cvss_score }}{% endif %} {% if item.epss_score %}EPSS {{ item.epss_score }}{% endif %}</p>
+        <p>{{ item.ai_summary }}</p>
+        <p>{{ item.ai_remediation }}</p>
+        <p><a href="{{ item.nvd_url }}">View on NVD</a></p>
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No digest has been generated yet.</p>
+  {% endif %}
+
+  <p><a href="{% url 'dashboard-home' %}">Back to dashboard</a></p>
+</body>
+</html>

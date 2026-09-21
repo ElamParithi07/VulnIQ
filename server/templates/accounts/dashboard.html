@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <h1>VulnIQ Dashboard</h1>
+
+  {% if messages %}
+  <ul>
+    {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if not request.user.is_email_verified %}
+  <p><strong>Your email is not verified.</strong> Verify your email to enable daily digests.</p>
+  {% endif %}
+
+  <p>Organization: {{ organization.name }}</p>
+  <p>Daily digest emails: {% if organization.digest_enabled %}Enabled{% else %}Disabled{% endif %}</p>
+
+  <ul>
+    <li><a href="{% url 'dashboard-settings' %}">Manage digest settings</a></li>
+    <li><a href="{% url 'taxonomy:tag-selection' %}">Select your product tags</a></li>
+    <li><a href="{% url 'digests:latest' %}">View latest digest</a></li>
+    <li><a href="{% url 'accounts:logout' %}">Log out</a></li>
+  </ul>
+</body>
+</html>

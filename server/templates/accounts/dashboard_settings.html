@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <h1>Digest Settings</h1>
+
+  {% if messages %}
+  <ul>
+    {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+
+  <p>Email verification status: {% if request.user.is_email_verified %}Verified{% else %}Not verified{% endif %}</p>
+  {% if not request.user.is_email_verified %}
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="resend_verification">
+    <button type="submit">Resend verification email</button>
+  </form>
+  {% endif %}
+
+  <p>Daily digest emails: {% if organization.digest_enabled %}Enabled{% else %}Disabled{% endif %}</p>
+  <form method="post">
+    {% csrf_token %}
+    {% if organization.digest_enabled %}
+    <input type="hidden" name="action" value="disable_digest">
+    <button type="submit">Disable daily digest</button>
+    {% else %}
+    <input type="hidden" name="action" value="enable_digest">
+    <button type="submit" {% if not request.user.is_email_verified %}disabled{% endif %}>Enable daily digest</button>
+    {% endif %}
+  </form>
+
+  <p><a href="{% url 'dashboard-home' %}">Back to dashboard</a></p>
+</body>
+</html>

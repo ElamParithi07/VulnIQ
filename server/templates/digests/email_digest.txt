@@ -1,0 +1,15 @@
+VulnIQ Daily Vulnerability Digest - {{ digest_date }}
+
+{% if is_fully_backfill %}No vulnerabilities were found for your selected product stack today. Below are today's top global threats instead.{% else %}Here is your daily vulnerability briefing for {{ organization_name }}, based on your selected products.{% endif %}
+{% for item in items %}
+{{ item.rank }}. {{ item.title }}
+{{ item.cve_id }} | {{ item.vendor_product_line }} | {{ item.date_label }}{% if item.chips %} | {{ item.chips|join:", " }}{% endif %}
+{% if item.cvss_score %}CVSS {{ item.cvss_score }}{% endif %}{% if item.cvss_score and item.epss_score %} | {% endif %}{% if item.epss_score %}EPSS {{ item.epss_score }}{% endif %}
+Summary: {{ item.ai_summary }}
+Remediation: {{ item.ai_remediation }}
+Source: {{ item.nvd_url }}
+{% endfor %}
+--
+You are receiving this because daily digest emails are enabled for your organization on VulnIQ.
+View in dashboard: {{ dashboard_url }}
+Manage digest settings / unsubscribe: {{ settings_url }}
